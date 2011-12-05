@@ -1,0 +1,3 @@
+module YamlConfiguration
+  VERSION = "0.0.1"
+end
