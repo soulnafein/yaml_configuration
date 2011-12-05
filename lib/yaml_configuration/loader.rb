@@ -2,7 +2,7 @@ module YamlConfiguration
   class Loader
     def load(*config_files)
       combined_configuration = {}
-      config_files.each do |config_file|
+      config_files.flatten.each do |config_file|
         loaded_config = load_yaml_config(config_file)
         combined_configuration.deep_merge(loaded_config)
       end
