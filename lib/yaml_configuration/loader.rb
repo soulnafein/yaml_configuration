@@ -10,8 +10,8 @@ module YamlConfiguration
     end
 
     private
-    def load_yaml_config(*path)
-      full_path = File.expand_path(File.join(*path) + '.yml')
+    def load_yaml_config(path)
+      full_path = File.expand_path(path + '.yml')
       if File.file?(full_path)
         config = YAML.load(File.read(full_path))
         raise "The file '#{full_path}' is an invalid yaml config" unless config.respond_to?(:keys)
