@@ -6,7 +6,6 @@ module YamlConfiguration
         loaded_config = load_yaml_config(config_file)
         combined_configuration.deep_merge!(loaded_config)
       end
-      puts combined_configuration.inspect
       Configuration.new(combined_configuration)
     end
 
