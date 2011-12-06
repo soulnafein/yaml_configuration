@@ -4,8 +4,9 @@ module YamlConfiguration
       combined_configuration = {}
       config_files.flatten.each do |config_file|
         loaded_config = load_yaml_config(config_file)
-        combined_configuration.deep_merge(loaded_config)
+        combined_configuration.deep_merge!(loaded_config)
       end
+      puts combined_configuration.inspect
       Configuration.new(combined_configuration)
     end
 
