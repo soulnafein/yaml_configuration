@@ -1,4 +1,3 @@
-require 'hash_deep_merge'
 module YamlConfiguration
   class Loader
     def load(*config_files)

@@ -1,4 +1,5 @@
 require_relative '../lib/yaml_configuration.rb'
+require 'bundler/setup'
 require 'turn'
 
 def assert_exception(exception, message=nil)
