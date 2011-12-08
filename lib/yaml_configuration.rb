@@ -1,5 +1,6 @@
 require "yaml_configuration/version"
 require 'hash_deep_merge'
+require_relative 'yaml_configuration/placeholders_preprocessor'
 require_relative 'yaml_configuration/configuration'
 require_relative 'yaml_configuration/loader'
 

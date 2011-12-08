@@ -4,6 +4,7 @@ module YamlConfiguration
       @config = hash_configuration
       @name = name
       @parent = parent
+      @placeholders_preprocessor = PlaceholdersPreprocessor.new(self)
     end
 
     def full_name(setting_name)
@@ -26,6 +27,10 @@ module YamlConfiguration
       end
     end
 
+    def respond_to_missing?(method, *)
+      asking_if_setting_exist(method.to_s) || setting_exist?(method.to_s) || super
+    end
+
     private
     def asking_if_setting_exist(setting_name)
       setting_name =~ /^(.*)+\?$/
@@ -40,7 +45,7 @@ module YamlConfiguration
       if value.respond_to?(:keys)
         return Configuration.new(value, self, setting_name)
       else
-        return value
+        return @placeholders_preprocessor.parse(value)
       end
     end
   end

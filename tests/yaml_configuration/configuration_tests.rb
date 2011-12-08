@@ -37,5 +37,27 @@ module YamlConfiguration
       assert configuration.site.name?
       refute configuration.site.database?
     end
+
+    def test_that_placeholder_get_replaced_correctly
+      configuration = Configuration.new({'host' => 'localhost', 'port' => '23', 
+                                         'base_url' => '${host}:${port}/${database.name}',
+                                         'database' => { 'name' => 'mysql'}})
+
+      assert_equal 'localhost:23/mysql', configuration.base_url
+    end
+
+    def test_that_placeholders_get_replaced_correctly_in_arrays
+      urls = ['${host}:${port}/first', 
+              '${host}:${port}/second',
+              ['${host}:${port}/third','${host}:${port}/fourth']
+            ]
+      configuration = Configuration.new({'host' => 'localhost', 'port' => '23', 
+                                         'urls' => urls})
+
+      assert_equal ['localhost:23/first', 
+                    'localhost:23/second',
+                    ['localhost:23/third', 'localhost:23/fourth'],
+                   ], configuration.urls
+    end
   end
 end
