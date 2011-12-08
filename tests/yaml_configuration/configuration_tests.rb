@@ -39,11 +39,11 @@ module YamlConfiguration
     end
 
     def test_that_placeholder_get_replaced_correctly
-      configuration = Configuration.new({'host' => 'localhost', 'port' => '23', 
-                                         'base_url' => '${host}:${port}/${database.name}',
-                                         'database' => { 'name' => 'mysql'}})
+      configuration = Configuration.new({'host' => 'localhost', 'port' => 23, 
+                                         'database' => { 'name' => 'mysql', 
+                                         'base_url' => '${host}:${port}/${database.name}'}})
 
-      assert_equal 'localhost:23/mysql', configuration.base_url
+      assert_equal 'localhost:23/mysql', configuration.database.base_url
     end
 
     def test_that_placeholders_get_replaced_correctly_in_arrays

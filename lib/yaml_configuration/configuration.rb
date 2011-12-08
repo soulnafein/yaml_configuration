@@ -1,10 +1,13 @@
 module YamlConfiguration
   class Configuration
+    attr_reader :placeholders_preprocessor
+
     def initialize(hash_configuration, parent=nil, name=nil)
       @config = hash_configuration
       @name = name
       @parent = parent
-      @placeholders_preprocessor = PlaceholdersPreprocessor.new(self)
+      parent_preprocessor = @parent.placeholders_preprocessor unless @parent.nil?
+      @placeholders_preprocessor = parent_preprocessor || PlaceholdersPreprocessor.new(self)
     end
 
     def full_name(setting_name)

@@ -8,7 +8,12 @@ module YamlConfiguration
       if value.respond_to?(:each)
         value.map {|v| self.parse(v)}
       else
-        value.gsub(/\${([^}]*)}/) { @configuration.instance_eval($1) } 
+        begin
+          value.to_s.gsub(/\${([^}]*)}/) { @configuration.instance_eval($1) } 
+        rescue Exception => ex
+          puts @configuration.inspect
+          raise ex
+        end
       end
     end
   end
