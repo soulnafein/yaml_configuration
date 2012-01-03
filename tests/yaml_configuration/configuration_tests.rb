@@ -59,5 +59,12 @@ module YamlConfiguration
                     ['localhost:23/third', 'localhost:23/fourth'],
                    ], configuration.urls
     end
+
+    def test_that_boolean_values_are_parsed_correctly
+      configuration = Configuration.new({ 'vero' => true, 'falso' => false})
+
+      assert_equal(true, configuration.vero)
+      assert_equal(false, configuration.falso)
+    end
   end
 end
